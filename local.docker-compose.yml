@@ -16,7 +16,7 @@ services:
     image: employee-wishlist-api:latest
     volumes:
       - ./src:/home/node
-    # command: /home/node/node_modules/.bin/nodemon app.js
+    command: /home/node/node_modules/.bin/nodemon app.js
   employee-wishlist-mongo-db:
     image: mongo:5.0
     container_name: employee-wishlist-mongo-db

@@ -6,6 +6,7 @@
     "scripts": {},
     "author": "Randika Dissanayaka",
     "license": "ISC",
-    "dependencies": {},
-    "devDependencies": {}
-  }
+    "dependencies": {
+        "nodemon": "^2.0.15"
+    }
+}
