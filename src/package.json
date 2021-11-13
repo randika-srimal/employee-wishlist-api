@@ -3,10 +3,16 @@
     "version": "1.0.0",
     "description": "",
     "main": "app.js",
-    "scripts": {},
+    "scripts": {
+        "standard": "npx standard",
+        "standard-fix": "npx standard --fix"
+    },
     "author": "Randika Dissanayaka",
     "license": "ISC",
     "dependencies": {
         "nodemon": "^2.0.15"
+    },
+    "devDependencies": {
+        "standard": "^16.0.4"
     }
 }
