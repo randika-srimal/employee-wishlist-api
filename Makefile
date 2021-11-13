@@ -16,3 +16,6 @@ up:
 
 down:
 	docker-compose -f local.docker-compose.yml down --remove-orphans
+
+logging:
+	docker logs --follow employee-wishlist-api
