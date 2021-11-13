@@ -12,6 +12,10 @@ const typeDefs = gql`
   type Query {
     employees: [Employee]
   }
+
+  type Mutation {
+      createEmployee (name:String!): [Employee]
+  }
 `
 
 const employees = [
@@ -33,9 +37,15 @@ const resolvers = {
   Query: {
     employees: () => employees,
   },
+  Mutation: {
+    createEmployee:async (parent, quote) => {
+        var newEmployee = {name:'Wow Randika'};
+        employees.push(newEmployee)
+
+        return employees;
+    }
+  }
 };
-
-
 
 async function startApolloServer (typeDefs, resolvers) {
   try {
