@@ -1,0 +1,8 @@
+*.env
+.ash_history
+node_modules
+.npm
+.config
+.cache
+docs/
+.env

@@ -1,0 +1,11 @@
+{
+    "name": "employee-wishlist",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {},
+    "author": "Randika Dissanayaka",
+    "license": "ISC",
+    "dependencies": {},
+    "devDependencies": {}
+  }
