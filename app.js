@@ -21,25 +21,13 @@ const typeDefs = gql`
       createEmployee (firstName:String!,lastName:String!,email:String!): Employee
   }
 `
-
-const employees = [
-    {
-        name:'Normal Randika'
-    },
-    {
-        name:'Genius Randika'
-    },
-    {
-        name:'Brave Randika'
-    },
-    {
-        name:'Cute Randika'
-    }
-]
-
 const resolvers = {
   Query: {
-    employees: () => employees,
+    employees: async (parent, args) => {
+      const employees = await Employee.find();
+
+      return [...employees]
+    }
   },
   Mutation: {
     createEmployee:async (parent, args) => {
