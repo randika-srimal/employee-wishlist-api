@@ -18,6 +18,8 @@ services:
       - ./:/home/node
     # command: tail -F anything // Keep running container
     command: /home/node/node_modules/.bin/nodemon app.js
+    depends_on:
+      - employee-wishlist-mongo-db
   employee-wishlist-mongo-db:
     image: mongo:5.0
     container_name: employee-wishlist-mongo-db

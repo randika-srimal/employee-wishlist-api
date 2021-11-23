@@ -1,7 +1,9 @@
+require('dotenv').config()
 const express = require('express')
 const { ApolloServer,gql } = require('apollo-server-express')
 const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core')
 const http = require('http')
+const mongoose = require('mongoose')
 
 const typeDefs = gql`
   type Employee {
@@ -53,6 +55,12 @@ async function startApolloServer (typeDefs, resolvers) {
 
     app.get('/', function (req, res) {
       res.sendFile('views/index.html', { root: __dirname })
+    })
+
+    await mongoose.connect(`mongodb://${process.env.DB_HOST}:27017`, {
+      dbName: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      pass: process.env.DB_PASSWORD
     })
 
     const httpServer = http.createServer(app)
