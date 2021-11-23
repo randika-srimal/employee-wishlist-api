@@ -4,11 +4,13 @@ const { ApolloServer,gql } = require('apollo-server-express')
 const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core')
 const http = require('http')
 const mongoose = require('mongoose')
+const Employee = require('./models/employee')
 
 const typeDefs = gql`
   type Employee {
-    name: String!,
-    email:String
+    firstName: String!,
+    lastName: String!,
+    email:String!
   }
 
   type Query {
@@ -16,7 +18,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-      createEmployee (name:String!): [Employee]
+      createEmployee (firstName:String!,lastName:String!,email:String!): Employee
   }
 `
 
@@ -40,11 +42,19 @@ const resolvers = {
     employees: () => employees,
   },
   Mutation: {
-    createEmployee:async (parent, quote) => {
-        var newEmployee = {name:'Wow Randika'};
-        employees.push(newEmployee)
+    createEmployee:async (parent, args) => {
 
-        return employees;
+      const { firstName, lastName, email } = args
+
+      const employeeObj = new Employee({
+        firstName,
+        lastName,
+        email
+      })
+
+      const employee = await employeeObj.save()
+
+      return employee
     }
   }
 };
