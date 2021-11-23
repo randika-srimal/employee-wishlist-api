@@ -5,12 +5,24 @@ const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core')
 const http = require('http')
 const mongoose = require('mongoose')
 const Employee = require('./models/employee')
+const Wish = require('./models/wish')
 
 const typeDefs = gql`
+  type Wish {
+    title: String!,
+    description: String,
+    createdAt: String,
+    updatedAt: String
+  }
+
   type Employee {
+    _id:ID!,
     firstName: String!,
     lastName: String!,
-    email:String!
+    email:String!,
+    wishes:[Wish],
+    createdAt: String,
+    updatedAt: String
   }
 
   type Query {
@@ -18,7 +30,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-      createEmployee (firstName:String!,lastName:String!,email:String!): Employee
+      createEmployee (firstName:String!,lastName:String!,email:String!): Employee,
+      createWish (employeeId:ID!,title:String!,description:String): Wish
   }
 `
 const resolvers = {
@@ -43,6 +56,23 @@ const resolvers = {
       const employee = await employeeObj.save()
 
       return employee
+    },
+    createWish:async (parent, args) => {
+
+      const { title, description, employeeId } = args
+
+      const employee = await Employee.findById(employeeId);
+
+      const wishObj = new Wish({
+        title,
+        description
+      })
+
+      employee.wishes.push(wishObj);
+
+      const savedEmployee = await employee.save()
+
+      return savedEmployee.wishes.slice(-1)[0];
     }
   }
 };

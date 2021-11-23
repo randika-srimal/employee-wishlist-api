@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Wish = require('./wish')
 const { Schema } = mongoose
 
 const EmployeeSchema = new Schema({
@@ -14,7 +15,8 @@ const EmployeeSchema = new Schema({
     type: String,
     required: true,
     unique: true
-  }
+  },
+  wishes: [Wish.schema]
 }, {
   timestamps: true
 })
