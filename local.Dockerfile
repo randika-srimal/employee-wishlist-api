@@ -6,11 +6,11 @@ ENV PATH=$PATH:/home/node/.npm-global/bin
 
 WORKDIR /home/node
  
-COPY ./src/package*.json ./
+COPY ./package*.json ./
 
 RUN npm install
 
-COPY --chown=node:node ./src .
+COPY --chown=node:node . .
 
 USER node
 

@@ -7,21 +7,22 @@ services:
     ports:
       - "8001:80"
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker-configs/nginx/default.conf:/etc/nginx/conf.d/default.conf
   employee-wishlist-api:
     build:
       context: .
-      dockerfile: local.dockerfile
+      dockerfile: local.Dockerfile
     container_name: employee-wishlist-api
     image: employee-wishlist-api:latest
     volumes:
-      - ./src:/home/node
+      - ./:/home/node
+    # command: tail -F anything // Keep running container
     command: /home/node/node_modules/.bin/nodemon app.js
   employee-wishlist-mongo-db:
     image: mongo:5.0
     container_name: employee-wishlist-mongo-db
     env_file:
-      - ./env/mongo-db.env
+      - ./docker-configs/env/mongo-db.env
     volumes:
       - employee_wishlist_mongo_data:/data/db
   employee-wishlist-mongo-express:
@@ -30,6 +31,8 @@ services:
     ports:
       - 8002:8081
     env_file:
-      - ./env/mongo-express.env
+      - ./docker-configs/env/mongo-express.env
+    depends_on:
+      - employee-wishlist-mongo-db
 volumes: 
   employee_wishlist_mongo_data:

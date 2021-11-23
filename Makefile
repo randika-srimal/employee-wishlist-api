@@ -9,13 +9,13 @@ export UID
 export GID
 
 shell:
-	docker-compose -f local.docker-compose.yml exec -u ${UID}:${GID} employee-wishlist-api sh
+	docker-compose -f docker-compose.local.yml exec -u ${UID}:${GID} employee-wishlist-api sh
 
 up:
-	docker-compose -f local.docker-compose.yml up --build -d --remove-orphans
+	docker-compose -f docker-compose.local.yml up --build -d --remove-orphans
 
 down:
-	docker-compose -f local.docker-compose.yml down --remove-orphans
+	docker-compose -f docker-compose.local.yml down --remove-orphans
 
 logging:
 	docker logs --follow employee-wishlist-api
